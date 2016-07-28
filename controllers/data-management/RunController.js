@@ -1,29 +1,43 @@
 var models = require('../../models');
+var fs = require('fs');
+var csv = require('fast-csv');
+var multer = require('multer');
+
+var upload = multer({dest: 'uploads/'})
 
 module.exports = function (app, route) {
-    /*app.get(route, function(req, res){
-        models.run.find({}, function(err, results){
-            res.render('addCourse.html',{name:'MOOC Manngmt'});
-        })
-    });*/
+   
+    app.post(route, upload.single('csv'), function(req, res) {
+        console.log(req.file.path);
+        
+        var stream = fs.createReadStream(req.file.path);
 
-    app.post(route, function(req, res){
-        var run = new models.run({
-            course_code: req.params.course_code,
-            number: req.body.number, 
-            start_date: req.body.start_date,
-            end_date: req.body.end_date
-        });
-        console.log('body',req.body)
-        console.log(run);
-        run.save(function(err, data){
-            if (err) {
-                res.send(err);
-                console.log(err);
-            } else {
-                console.log("Saved.", data);
-                res.send('success!');
-            }
-        });
-    });
+        var items = []
+    
+        var csvStream = csv()
+            .on("data", function(data){
+                if (data[0] === 'uni_name')
+                    return;
+                var run = {
+                    course_code : req.body.course_code,
+                    uni_name : data[0],
+                    course_name: data[1],
+                    run: data[2],
+                    start_date: data[3],
+                    end_date: data[4],
+                    duration_weeks: data[5]
+                }
+                items.push(run);
+                console.log(run);
+            })
+            .on("end", function(){
+                models.run.collection.insert(items);
+                console.log("done");
+                res.send("done");
+            });
+    
+        stream.pipe(csvStream);
+
+    })
+
 }

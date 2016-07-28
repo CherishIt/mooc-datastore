@@ -16,6 +16,8 @@ module.exports = function (app, route) {
     
         var csvStream = csv()
             .on("data", function(data){
+                if (data[0] === 'id') 
+                    return;
                 var comment = {
                     course_code : req.body.course_code,
                     run : req.body.run,

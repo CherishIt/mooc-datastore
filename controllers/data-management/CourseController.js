@@ -1,8 +1,14 @@
-var models = require('../../models')
+var models = require('../../models');
+var _ = require('lodash');
 
 module.exports = function (app, route) {
     app.get(route, function(req, res){
-        res.render('addCourse.html',{name:'MOOC Manngmt'});
+        models.run.find({}, function(err,results){
+            if (err) {
+                res.send(err);
+            }
+            res.send(_.groupBy(results,'course_name'));
+        })
     });
 
     app.post(route, function(req, res){

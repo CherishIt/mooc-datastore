@@ -12,8 +12,8 @@
   <input type="submit">
 </form>
 <hr>
-<h2>Add Run</h2>
-<form id="runForm" method="post">
+<h2>Upload Course Metadata</h2>
+<form action="upload/metadata" method="POST" enctype="multipart/form-data">
   Course:
   <select id="course_code" name="course_code">
     {% for item in courses %}
@@ -21,11 +21,7 @@
     {% endfor %}
   </select>
   <br>
-  Run Number: <input name="number" type="number">
-  <br>
-  Start Date: <input name="start_date" type="date">
-  <br>
-  End Date: <input name="end_date" type="date">
+  File: <input name="csv" type="file">
   <br>
   <input type="submit">
 </form>
@@ -81,7 +77,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script type="text/javascript">
+<!--script type="text/javascript">
 $('#runForm').submit(function(e){
     var url = 'courses/' + $('#course_code').val() + '/run';
     console.log(url);
@@ -101,5 +97,5 @@ $('#runForm').submit(function(e){
     });
     e.preventDefault();
 });
-</script>
+</script-->
 </html>

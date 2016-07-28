@@ -36,6 +36,8 @@ module.exports = function (app, route) {
                         }
                     })
                 }*/
+                if (data[0] === 'learner_id')
+                    return;
                 var step_activity = {
                     course_code : req.body.course_code,
                     run : req.body.run,
