@@ -1,0 +1,105 @@
+<html>
+<head>
+</head>
+<body>
+<hr>
+<h2>Add Course</h2>
+<form action="courses" method="POST">
+  Name: <input name="name" type="text">
+  <br>
+  Code: <input name="code" type="text">
+  <br>
+  <input type="submit">
+</form>
+<hr>
+<h2>Add Run</h2>
+<form id="runForm" method="post">
+  Course:
+  <select id="course_code" name="course_code">
+    {% for item in courses %}
+    <option value="{{item.code}}">{{item.name}}</option>
+    {% endfor %}
+  </select>
+  <br>
+  Run Number: <input name="number" type="number">
+  <br>
+  Start Date: <input name="start_date" type="date">
+  <br>
+  End Date: <input name="end_date" type="date">
+  <br>
+  <input type="submit">
+</form>
+<hr>
+<h2>Upload CSV</h2>
+<h4>upload enrolment</h4>
+<form action="upload/enrolment" method="POST" enctype="multipart/form-data">
+  Course: 
+  <select id="course_code_1" name="course_code">
+    {% for item in courses %}
+    <option value="{{item.code}}">{{item.name}}</option>
+    {% endfor %}
+  </select>
+  <br>
+  Run: 
+  <input name="run" type="number" min="1">
+  <br>
+  File: <input name="csv" type="file">
+  <br>
+  <input type="submit">
+</form>
+<h4>upload step_activity</h4>
+<form action="upload/step_activity" method="POST" enctype="multipart/form-data">
+  Course: 
+  <select name="course_code">
+    {% for item in courses %}
+    <option value="{{item.code}}">{{item.name}}</option>
+    {% endfor %}
+  </select>
+  <br>
+  Run: <input name="run" type="number" min="1">
+  <br>
+  File: <input name="csv" type="file">
+  <br>
+  <input type="submit">
+</form>
+<h4>upload comment</h4>
+<form action="upload/comment" method="POST" enctype="multipart/form-data">
+  Course: 
+  <select name="course_code">
+    {% for item in courses %}
+    <option value="{{item.code}}">{{item.name}}</option>
+    {% endfor %}
+  </select>
+  <br>
+  Run: <input name="run" type="number" min="1">
+  <br>
+  File: <input name="csv" type="file">
+  <br>
+  <input type="submit">
+</form>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+$('#runForm').submit(function(e){
+    var url = 'courses/' + $('#course_code').val() + '/run';
+    console.log(url);
+    console.log()
+    $.ajax({
+      type: 'post',
+      url: url,
+      data: $('#runForm').serialize(),
+      error: function(r){
+        //alert('error');
+        console.log(r)
+      },
+      success: function(data){
+        //alert(data);
+        console.log(data);
+      }
+    });
+    e.preventDefault();
+});
+</script>
+</html>
