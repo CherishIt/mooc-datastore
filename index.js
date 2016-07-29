@@ -360,101 +360,66 @@ app.get('/enrolment', function(req, res) {
     });
 });
 
-
-/*app.get('/step_activity/step_started', function(req, res) {
-    /*models.step_activity.find({}, function(err, results){
-        if (err) {
-            res.send(err);
-        } else {
-            console.log(results.length);
-            res.send(results);
-        }
-    });
-    models.step_activity.aggregate([
-    {
-        $group:{
-            _id: '$step',
-            week_number: {$min: '$week_number'},
-            step_number: {$min: '$step_number'},
-            number: { $sum: 1 }
-        }
-    },
-    {
-        $sort:{
-            week_number: 1,
-            step_number: 1
-        }
-    }], 
-    function(err, results){
-        if (err) {
-            res.send(err);
-        } else {
-            console.log(results.length);
-            res.send(results);
-        }
-    });
-});*/
-
-app.get('/step_activity', function(req, res) {
-    /*models.step_activity.find({}, function(err, results){
-        if (err) {
-            res.send(err);
-        } else {
-            console.log(results.length);
-            res.send(results);
-        }
-    });*/
-    models.step_activity.aggregate([
-    {
-        $match:{
-            last_completed_at: { $ne : ''}
-        }
-    },
-    {
-        $group:{
-            _id: '$step',
-            week_number: {$min: '$week_number'},
-            step_number: {$min: '$step_number'},
-            number: { $sum: 1 }
-        }
-    },
-    {
-        $sort:{
-            week_number: 1,
-            step_number: 1
-        }
-    }], 
-    function(err, results){
-        if (err) {
-            res.send(err);
-        } else {
-            console.log(results.length);
-            models.step_activity.aggregate([
-            {
-                $group:{
-                    _id: '$step',
-                    week_number: {$min: '$week_number'},
-                    step_number: {$min: '$step_number'},
-                    number: { $sum: 1 }
-                }
-            },
-            {
-                $sort:{
-                    week_number: 1,
-                    step_number: 1
-                }
-            }], 
-            function(err, results2){
-                if (err) {
-                    res.send(err);
-                } else {
-                    console.log(results.length);
-                    res.send([results, results2]);
-                }
-            });
-        }
-    });
-});
+// app.get('/step_activity', function(req, res) {
+//     /*models.step_activity.find({}, function(err, results){
+//         if (err) {
+//             res.send(err);
+//         } else {
+//             console.log(results.length);
+//             res.send(results);
+//         }
+//     });
+//     models.step_activity.aggregate([
+//     {
+//         $match:{
+//             last_completed_at: { $ne : ''}
+//         }
+//     },
+//     {
+//         $group:{
+//             _id: '$step',
+//             week_number: {$min: '$week_number'},
+//             step_number: {$min: '$step_number'},
+//             number: { $sum: 1 }
+//         }
+//     },
+//     {
+//         $sort:{
+//             week_number: 1,
+//             step_number: 1
+//         }
+//     }], 
+//     function(err, results){
+//         if (err) {
+//             res.send(err);
+//         } else {
+//             console.log(results.length);
+//             models.step_activity.aggregate([
+//             {
+//                 $group:{
+//                     _id: '$step',
+//                     week_number: {$min: '$week_number'},
+//                     step_number: {$min: '$step_number'},
+//                     number: { $sum: 1 }
+//                 }
+//             },
+//             {
+//                 $sort:{
+//                     week_number: 1,
+//                     step_number: 1
+//                 }
+//             }], 
+//             function(err, results2){
+//                 if (err) {
+//                     res.send(err);
+//                 } else {
+//                     console.log(results.length);
+//                     res.send([results, results2]);
+//                 }
+//             });
+//         }
+//     });
+// });
 
 /*app.post('/upload/step_activity', upload.single('csv'), function(req, res) {
     console.log(req.file.path);

@@ -43,8 +43,8 @@ module.exports = function (app, route) {
                     run : req.body.run,
                     learner_id : data[0],
                     step: data[1],
-                    week_number: data[2],
-                    step_number: data[3],
+                    week_number: parseInt(data[2]),
+                    step_number: parseInt(data[3]),
                     first_visited_at: data[4],
                     last_completed_at: data[5]
                 }

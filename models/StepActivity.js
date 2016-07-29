@@ -18,11 +18,11 @@ var StepActivitySchema = new mongoose.Schema({
         required: true
     },
     week_number : {
-        type : String,
+        type : Number,
         required: true
     },
     step_number : {
-        type : String,
+        type : Number,
         required: true
     },
     first_visited_at : {

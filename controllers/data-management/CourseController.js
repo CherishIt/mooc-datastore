@@ -20,6 +20,6 @@ module.exports = function (app, route) {
                 console.log("Saved.", data)
             }
         });
-        res.render('addCourse.html',{name:'Success!'})
+        res.send('Success!');
     });
 }
