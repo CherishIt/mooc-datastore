@@ -22,8 +22,8 @@ module.exports = function (app, route) {
                     course_code : req.body.course_code,
                     run: req.body.run,
                     learner_id : data[0],
-                    enrolled_at : data[1],
-                    unenrolled_at : data[2]
+                    enrolled_at : new Date(data[1]),
+                    unenrolled_at : data[2]? new Date(data[2]) : ''
                 }
                 items.push(enrolment);
                 console.log(enrolment.learner_id);

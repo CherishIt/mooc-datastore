@@ -25,12 +25,12 @@ module.exports = function (app, route) {
                     author_id: data[1],
                     parent_id: data[2],
                     step: data[3],
-                    week_number: data[4],
-                    step_number: data[5],
+                    week_number: parseInt(data[4]),
+                    step_number: parseInt(data[5]),
                     text: data[6],
                     timestamp: data[7],
                     moderated: data[8],
-                    likes: data[9]
+                    likes: parseInt(data[9])
                 }
                 items.push(comment);
                 console.log(comment.id);

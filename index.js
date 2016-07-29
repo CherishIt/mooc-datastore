@@ -349,16 +349,16 @@ app.get('/comment', function(req, res) {
     });
 });
 
-app.get('/enrolment', function(req, res) {
-    models.enrolment.find({}, function(err, results){
-        if (err) {
-            res.send(err);
-        } else {
-            console.log(results.length);
-            res.send(results);
-        }
-    });
-});
+// app.get('/enrolment', function(req, res) {
+//     models.enrolment.find({}, function(err, results){
+//         if (err) {
+//             res.send(err);
+//         } else {
+//             console.log(results.length);
+//             res.send(results);
+//         }
+//     });
+// });
 
 // app.get('/step_activity', function(req, res) {
 //     /*models.step_activity.find({}, function(err, results){
