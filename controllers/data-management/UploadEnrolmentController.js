@@ -12,18 +12,37 @@ module.exports = function (app, route) {
         
         var stream = fs.createReadStream(req.file.path);
 
+        models.enrolment.collection.remove({
+            course_code: req.body.course_code, 
+            run: req.body.run
+        },function(err){
+            if (err) {
+                console.log(err);
+            }
+        });
+
         var items = [];
     
         var csvStream = csv()
             .on("data", function(data){
                 if (data[0] === 'learner_id')
                     return;
+
                 var enrolment = {
                     course_code : req.body.course_code,
                     run: req.body.run,
                     learner_id : data[0],
                     enrolled_at : new Date(data[1]),
-                    unenrolled_at : data[2]? new Date(data[2]) : ''
+                    unenrolled_at : data[2]? new Date(data[2]) : '',
+                    role : data[3],
+                    fully_participated_at : data[4] ? new Date(data[4]) : '',
+                    purchased_statement_at : data[5] ? new Date(data[5]) : '',
+                    gender : data[6],
+                    country : data[7],
+                    age_range : data[8],
+                    highest_education_level : data[9],
+                    employment_status : data[10],
+                    employment_area : data[11]
                 }
                 items.push(enrolment);
                 console.log(enrolment.learner_id);
@@ -36,6 +55,6 @@ module.exports = function (app, route) {
     
         stream.pipe(csvStream);
         
-        res.send(req.files);
+        res.send(req.file);
     })
 }

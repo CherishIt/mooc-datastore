@@ -77,7 +77,7 @@ module.exports = function (app, route) {
                         enrolled_at : new Date(data[1]),
                         unenrolled_at : data[2]? new Date(data[2]) : '',
                         role : data[3],
-                        fully_paticipated_at : data[4] ? new Date(data[4]) : '',
+                        fully_participated_at : data[4] ? new Date(data[4]) : '',
                         purchased_statement_at : data[5] ? new Date(data[5]) : '',
                         gender : data[6],
                         country : data[7],
