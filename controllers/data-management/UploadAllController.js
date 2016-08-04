@@ -269,7 +269,7 @@ module.exports = function (app, route) {
             var peer_review_reviews_items = [];
             var peer_review_reviews_csv = csv()
                 .on("data", function(data){
-                    if (data[0] === 'learner_id')
+                    if (data[0] === 'id')
                         return;
                     var peer_review_review = {
                         course_code : req.body.course_code,
