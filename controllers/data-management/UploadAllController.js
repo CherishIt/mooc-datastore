@@ -201,7 +201,7 @@ module.exports = function (app, route) {
                         question_number: parseInt(data[4]),
                         response: parseInt(data[5]),
                         submitted_at: new Date(data[6]),
-                        correct: Boolean(data[7]) // ...
+                        correct: data[7]==='true' // ...
                     }
                     question_response_items.push(question_response);
                     console.log(question_response.learner_id);
@@ -228,7 +228,7 @@ module.exports = function (app, route) {
             var peer_review_assignment_items = [];
             var peer_review_assignment_csv = csv()
                 .on("data", function(data){
-                    if (data[0] === 'learner_id')
+                    if (data[0] === 'id')
                         return;
                     var peer_review_assignment = {
                         course_code : req.body.course_code,
@@ -242,7 +242,7 @@ module.exports = function (app, route) {
                         first_viewed_at: new Date(data[6]),
                         submitted_at: new Date(data[7]),
                         moderated: data[8] ? new Date(data[8]) : '',
-                        review_count: data[9]
+                        review_count: parseInt(data[9])
                     }
                     peer_review_assignment_items.push(peer_review_assignment);
                     console.log(peer_review_assignment.id);

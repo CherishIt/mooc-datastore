@@ -6,7 +6,7 @@ var StepActivitySchema = new mongoose.Schema({
         required : true
     },
     run : {
-        type : Number,
+        type : String,
         required : true
     },
     learner_id : {
