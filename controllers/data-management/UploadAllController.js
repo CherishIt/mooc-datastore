@@ -201,7 +201,7 @@ module.exports = function (app, route) {
                         question_number: parseInt(data[4]),
                         response: parseInt(data[5]),
                         submitted_at: new Date(data[6]),
-                        correct: data[7] === 'TRUE' // ...
+                        correct: Boolean(data[7]) // ...
                     }
                     question_response_items.push(question_response);
                     console.log(question_response.learner_id);
