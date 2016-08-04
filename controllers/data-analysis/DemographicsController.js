@@ -1,5 +1,6 @@
 var models = require('../../models');
 var _ = require('lodash');
+var countries = require('country-data').countries;
 
 module.exports = function(app, route) {
 
@@ -129,6 +130,12 @@ module.exports = function(app, route) {
         if (err) {
           res.send(err);
         } else {
+          results.forEach(function(e){
+            if (e._id === 'Unknown')
+              return;
+            console.log(e._id,countries[e._id])
+            e.name = countries[e._id].name;
+          });
           demographics.country = results;
           respond();
         }
