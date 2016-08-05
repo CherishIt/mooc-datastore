@@ -89,50 +89,50 @@ module.exports = function(app, route) {
         stats.comment = results;
         return;
       }
-      models.comment.collection.aggregate([{
-        $match: {
-          course_code: req.params.course_code
-        }
-      },{
-        $group: {
-          _id: '$run',
-          total_commentor: {
-            $sum: 1
-          }
-        }
-      }, {
-        $sort: {
-          _id: 1
-        }
-      }]
-      ,function(err, total){
-        if (err) {
-          console.log(err);
-          return;
-        }
-        for (var i = 0; i < total.length; i++) {
-          results[i].total_commentor = total[i].total_commentor;
-        }
-        stats.comment = results;
-        respond();
-      })
-      // results.forEach(function(r) {
-      //   models.comment.find({
-      //     course_code: req.params.course_code,
-      //     run: r._id
-      //   }).distinct('author_id',  function(err, result) {
-      //     if (err) {
-      //       console.log(err)
-      //     } else {
-      //       r.total_commentor = result.length;
-      //       count++;
-      //       if (count === results.length){
-      //         stats.comment = results;
-      //         respond();
-      //       }
+      // models.comment.collection.aggregate([{
+      //   $match: {
+      //     course_code: req.params.course_code
+      //   }
+      // },{
+      //   $group: {
+      //     _id: '$run',
+      //     total_commentor: {
+      //       $sum: 1
       //     }
-      //   });
-      // });
+      //   }
+      // }, {
+      //   $sort: {
+      //     _id: 1
+      //   }
+      // }]
+      // ,function(err, total){
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   }
+      //   for (var i = 0; i < total.length; i++) {
+      //     results[i].total_commentor = total[i].total_commentor;
+      //   }
+      //   stats.comment = results;
+      //   respond();
+      // })
+      results.forEach(function(r) {
+        models.comment.find({
+          course_code: req.params.course_code,
+          run: r._id
+        }).distinct('author_id',  function(err, result) {
+          if (err) {
+            console.log(err)
+          } else {
+            r.total_commentor = result.length;
+            count++;
+            if (count === results.length){
+              stats.comment = results;
+              respond();
+            }
+          }
+        });
+      });
     });
 
     //4. step_activities
@@ -168,51 +168,51 @@ module.exports = function(app, route) {
         stats.step_activity = results;
         return;
       }
-      //results.forEach(function(r) {
-      models.step_activity.collection.aggregate([{
-        $match: {
-          course_code: req.params.course_code
-        }
-      },{
-        $group: {
-          _id: '$run',
-          total_learner: {
-            $sum: 1
+      results.forEach(function(r) {
+      // models.step_activity.collection.aggregate([{
+      //   $match: {
+      //     course_code: req.params.course_code
+      //   }
+      // },{
+      //   $group: {
+      //     _id: '$run',
+      //     total_learner: {
+      //       $sum: 1
+      //     }
+      //   }
+      // }, {
+      //   $sort: {
+      //     _id: 1
+      //   }
+      // }]
+      // ,function(err, total){
+      //   if (err) {
+      //     console.log(err);
+      //     return;
+      //   }
+      //   for (var i = 0; i < total.length; i++) {
+      //     results[i].total_learner = total[i].total_learner;
+      //   }
+      //   stats.step_activity = results;
+      //   respond();
+      // })
+        models.step_activity.find({
+          course_code: req.params.course_code,
+          run: r._id
+        }).distinct('learner_id', function(err, result) {
+          if (err) {
+            console.log(err)
+          } else {
+            //console.log(req.params.course_code,r._id,result)
+            r.total_learner = result.length;
+            count++;
+            if (count === results.length){
+              stats.step_activity = results;
+              respond();
+            }
           }
-        }
-      }, {
-        $sort: {
-          _id: 1
-        }
-      }]
-      ,function(err, total){
-        if (err) {
-          console.log(err);
-          return;
-        }
-        for (var i = 0; i < total.length; i++) {
-          results[i].total_learner = total[i].total_learner;
-        }
-        stats.step_activity = results;
-        respond();
-      })
-        // models.step_activity.find({
-        //   course_code: req.params.course_code,
-        //   run: r._id
-        // }).distinct('learner_id', function(err, result) {
-        //   if (err) {
-        //     console.log(err)
-        //   } else {
-        //     //console.log(req.params.course_code,r._id,result)
-        //     r.total_learner = result.length;
-        //     count++;
-        //     if (count === results.length){
-        //       stats.step_activity = results;
-        //       respond();
-        //     }
-        //   }
-        // });
-      //});
+        });
+      });
     });
 
     //5. question_response
