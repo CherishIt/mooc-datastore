@@ -109,7 +109,7 @@ module.exports = function (app, route) {
                 //var byAuthor = dl.
     
     
-                res.send({density:density,distribution:a});
+                res.send({density:_.sortBy(density,'date'),distribution:a});
                 
             }
         });
