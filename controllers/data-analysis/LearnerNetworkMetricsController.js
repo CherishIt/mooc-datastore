@@ -20,6 +20,10 @@ module.exports = function (app, route) {
             if (err) {
                 res.send(err);
             } else {
+                if (results.length ===0) {
+                    res.send(results);
+                    return;
+                }
                 for (var i = 0; i < results.length; i++) {
                     var date = new Date(results[i].timestamp);
                     results[i].date = new Date(date.getFullYear(), date.getMonth(), date.getDate())

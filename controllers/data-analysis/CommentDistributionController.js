@@ -32,6 +32,10 @@ module.exports = function (app, route) {
         } else {
             console.log(results.length);
             //comments with no replies
+            if (results.length === 0) {
+                res.send(results);
+                return;
+            }
             var single = results.pop();
             results.unshift({'_id':0, 'count':single._id})
             res.send(results);
