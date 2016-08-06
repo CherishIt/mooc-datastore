@@ -20,7 +20,7 @@ var CommentSchema = new mongoose.Schema({
     },
     parent_id : String,
     step : {
-        type : Number,
+        type : String,
         required : true
     },
     week_number : {
