@@ -502,11 +502,11 @@ app.post('/upload/enrolment', upload.single('csv'), function(req, res) {
     res.send(req.files);
 })*/
 
-mongoose.connect('mongodb://localhost/uploadcsv');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/uploadcsv');
 mongoose.connection.once('open', function(){
 
-    app.listen(3000, function() {
-        console.log('Listening on port 3000');
+    app.listen(process.env.PORT||3000, function() {
+        console.log('Listening...');
     });
 
     //app.post() 
