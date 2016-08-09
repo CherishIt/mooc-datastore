@@ -16,5 +16,6 @@ module.exports = {
     '/courses/:course_code/run/:run/learner_network' : require('./controllers/data-analysis/LearnerNetworkController'),
     '/courses/:course_code/run/:run/learner_network_metrics' : require('./controllers/data-analysis/LearnerNetworkMetricsController'),
     '/courses/:course_code/run/:run/question_response' : require('./controllers/data-analysis/QuestionResponseController'),
-    '/courses/:course_code/run/:run/comment_analysis' : require('./controllers/data-analysis/CommentAnalysisController')
+    '/courses/:course_code/run/:run/comment_analysis' : require('./controllers/data-analysis/CommentAnalysisController'),
+    '/courses/:course_code/run/:run/sentiment_analysis' : require('./controllers/data-analysis/SentimentAnalysisController')
 }
