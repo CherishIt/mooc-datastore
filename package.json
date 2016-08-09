@@ -13,6 +13,7 @@
     "alasql": "^0.2.7",
     "body-parser": "^1.15.2",
     "cors": "^2.7.1",
+    "country-data": "0.0.26",
     "data-reduction": "^0.3.0",
     "datalib": "^1.7.1",
     "express": "^4.14.0",
