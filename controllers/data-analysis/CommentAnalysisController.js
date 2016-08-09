@@ -1,5 +1,6 @@
 var models = require('../../models');
 var _ = require('lodash');
+var sentiment = require('sentiment');
 
 module.exports = function(app, route) {
 
@@ -16,6 +17,7 @@ module.exports = function(app, route) {
       match.week_number = req.query.week;
     }
 
+    var pre = Date.now();
     models.comment.find(match, {
       _id: 0,
       week_number: 1,
@@ -31,7 +33,7 @@ module.exports = function(app, route) {
         res.send(err);
         return;
       }
-      console.log('Comment Number',results.length)
+      console.log('Comment Number',results.length, Date.now()-pre)
 
       var t0 = Date.now();
 
@@ -47,6 +49,8 @@ module.exports = function(app, route) {
       })
       var t2 = Date.now();
       console.log('Merge texts', t2-t1);
+
+      //var sent = sentiment(string);
 
       var words = wordcloud(string);
       var t3 = Date.now();
@@ -80,6 +84,7 @@ module.exports = function(app, route) {
 
       console.log(array.length);
       res.send({
+        //sent: sent,
         weeks: weeks,
         steps: steps,
         freq: array
