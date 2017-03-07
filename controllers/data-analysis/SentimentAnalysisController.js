@@ -33,8 +33,9 @@ module.exports = function(app, route) {
       var by = 'step'
       if (req.query.by === 'week')
         by = 'week_number';
-
+      console.log('by:'+by +'\nkeyword:'+req.query.keyword)
       var grouped = _.groupBy(results,by);
+      console.log('grouped!');
       var metrics = {};
       var pos_list = [];
       var neg_list = [];
@@ -66,11 +67,13 @@ module.exports = function(app, route) {
           if (n.score===0)
             metrics[key].neutral++
         });
+        console.log(key + ': ' + metrics[key].total);
         metrics[key].pos_list = _.countBy(metrics[key].pos_list);
         metrics[key].neg_list = _.countBy(metrics[key].neg_list);
       })
       pos_list = _.countBy(pos_list);
       neg_list = _.countBy(neg_list);
+      console.log('response sent');
       res.send({pos_list:pos_list,neg_list:neg_list,metrics: metrics});
     })
   });
